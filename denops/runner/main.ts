@@ -34,14 +34,20 @@ export async function main(denops: Denops): Promise<void> {
       // currentFilePath needs to be set before the terminal is created
       const currentFilePath = await filePath(denops);
 
+      const terminal = Deno.build.os === "windows" ? "powershell" : "fish";
       if (!await terminalIsAlive(denops)) {
         await denops.cmd(
-          `:bel split term://fish`,
+          `:bel split term://${terminal}`,
         );
         await denops.cmd(`resize ${await lines(denops) / 4}`);
       }
+      if (terminal === "powershell") {
+        // with power shell we need enter insert mode manually
+        await fn.feedkeys(denops, "a");
+      }
 
-      const plugin = await import(userScriptPath) as {
+      // we add 'file:///' because windows needs it
+      const plugin = await import("file:///" + userScriptPath) as {
         plugin: (denops: Denops, filePath: string) => Promise<void>;
       };
       if (!plugin.plugin) {

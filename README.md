@@ -45,7 +45,7 @@ import * as fn from "https://deno.land/x/denops_std@v3.0.0/function/mod.ts";
 const feedEnter = async (denops: Denops) =>
   await fn.feedkeys(
     denops,
-    "\n",
+    Deno.build.os === "windows" ? "\r\n" : "\n",
   );
 
 export async function plugin(denops: Denops, currentFilePath: string) {
