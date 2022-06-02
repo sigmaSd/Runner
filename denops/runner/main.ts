@@ -20,7 +20,7 @@ const terminalIsAlive = async (denops: Denops) => {
 
 export async function main(denops: Denops): Promise<void> {
   denops.dispatcher = {
-    async run() {
+    async run(args: unknown) {
       const currentFileType = await fileType(denops);
       const userScriptPath = config_dir() + "/" + "vim-runner" + "/" +
         currentFileType + "/" + "plugin.ts";
@@ -48,18 +48,26 @@ export async function main(denops: Denops): Promise<void> {
 
       // we add 'file:///' because windows needs it
       const plugin = await import("file:///" + userScriptPath) as {
-        plugin: (denops: Denops, filePath: string) => Promise<void>;
+        plugin: (
+          denops: Denops,
+          filePath: string,
+          args: string[],
+        ) => Promise<void>;
       };
       if (!plugin.plugin) {
         console.error(`'plugin' function is not defined in ${userScriptPath}`);
         return;
       }
-      await plugin.plugin(denops, currentFilePath);
+      await plugin.plugin(
+        denops,
+        currentFilePath,
+        (args as string).split(/\s+/),
+      );
     },
   };
 
   await execute(
     denops,
-    `command! RunFile call denops#request('${denops.name}', 'run', [])`,
+    `command! -nargs=* RunFile call denops#request('${denops.name}', 'run', [<q-args>])`,
   );
 }
