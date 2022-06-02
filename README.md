@@ -22,7 +22,7 @@ Plug 'sigmaSd/runner' "This actual plugin
   `$config_dir()/vim-runner/${filetype}/plugin.ts`
 - run `plugin` function defined in the above script
 
-`plugin` definition can be imported from TODO
+`plugin` definition can be imported from https://deno.land/x/runner_api@0.1.0/mod.ts
 
 ## Example
 
@@ -36,7 +36,7 @@ Save this snippet to `$config_dir()/vim-runner/typescript/plugin.ts` and
 ```ts
 import { Denops } from "https://deno.land/x/denops_std@v3.0.0/mod.ts";
 import * as fn from "https://deno.land/x/denops_std@v3.0.0/function/mod.ts";
-TODO;
+import { type Plugin } from "https://deno.land/x/runner_api@0.1.0/mod.ts";
 
 const feedEnter = async (denops: Denops) =>
   await fn.feedkeys(
