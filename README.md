@@ -22,7 +22,8 @@ Plug 'sigmaSd/runner' "This actual plugin
   `$config_dir()/vim-runner/${filetype}/plugin.ts`
 - run `plugin` function defined in the above script
 
-`plugin` definition can be imported from https://deno.land/x/runner_api@0.1.0/mod.ts
+`plugin` definition can be imported from
+https://deno.land/x/runner_api@0.1.0/mod.ts
 
 ## Example
 
