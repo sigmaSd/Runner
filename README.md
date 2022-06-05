@@ -51,8 +51,8 @@ export const plugin: Plugin = async (denops, filePath, args) => {
     case "run":
       await denoRun(denops, filePath);
       break;
-    case "check":
-      await denoCheck(denops, filePath);
+    case "repl":
+      await denoRepl(denops, filePath);
       break;
     default:
       console.error("Unknown command: " + args.join(" "));
