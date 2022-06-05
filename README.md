@@ -67,10 +67,13 @@ async function denoRun(denops: Denops, filePath: string) {
   );
   await feedEnter(denops);
 }
-async function denoCheck(denops: Denops, filePath: string) {
+/**
+ * starts a deno repl with all the file exports imported to the global scope
+ */
+async function denoRepl(denops: Denops, filePath: string) {
   await fn.feedkeys(
     denops,
-    `deno check ${filePath}`,
+    `deno repl --unstable --eval "import * as m from '${filePath}';Object.entries(m).forEach(e=>window[e[0]]=e[1])"`,
   );
   await feedEnter(denops);
 }
@@ -79,5 +82,6 @@ async function denoCheck(denops: Denops, filePath: string) {
 ## Keybinding suggestion
 
 ```vim
-nnoremap <C-x> :RunFile<CR>
+nnoremap <C-x> :RunFile run<CR>
+nnoremap <C-a> :RunFile repl<CR>
 ```
