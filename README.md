@@ -29,7 +29,7 @@ https://deno.land/x/runner_api@0.1.0/mod.ts
 
 **deno runner**
 
-_usage:_ `:RunFile run` `:RunFile check`
+_usage:_ `:RunFile run` `:RunFile repl`
 
 Save this snippet to `$config_dir()/vim-runner/typescript/plugin.ts` and
 `$config_dir()/vim-runner/javascript/plugin.ts`
