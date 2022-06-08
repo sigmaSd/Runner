@@ -73,7 +73,7 @@ async function denoRun(denops: Denops, filePath: string) {
 async function denoRepl(denops: Denops, filePath: string) {
   await fn.feedkeys(
     denops,
-    `deno repl --unstable --eval "import * as m from '${filePath}';Object.entries(m).forEach(e=>window[e[0]]=e[1])"`,
+    `deno repl --unstable --eval "import * as m from 'file:///${filePath}';Object.entries(m).forEach(e=>window[e[0]]=e[1])"`,
   );
   await feedEnter(denops);
 }
