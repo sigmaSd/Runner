@@ -36,14 +36,10 @@ Save this snippet to `$config_dir()/vim-runner/typescript/plugin.ts` and
 
 ```ts
 import { Denops } from "https://deno.land/x/denops_std@v3.0.0/mod.ts";
-import * as fn from "https://deno.land/x/denops_std@v3.0.0/function/mod.ts";
-import { type Plugin } from "https://deno.land/x/runner_api@0.1.0/mod.ts";
-
-const feedEnter = async (denops: Denops) =>
-  await fn.feedkeys(
-    denops,
-    Deno.build.os === "windows" ? "\r\n" : "\n",
-  );
+import {
+  execute,
+  type Plugin,
+} from "https://deno.land/x/runner_api@0.2.0/mod.ts";
 
 export const plugin: Plugin = async (denops, filePath, args) => {
   switch (args[0]) {
@@ -61,21 +57,19 @@ export const plugin: Plugin = async (denops, filePath, args) => {
 };
 
 async function denoRun(denops: Denops, filePath: string) {
-  await fn.feedkeys(
+  await execute(
     denops,
     `deno run --unstable -A ${filePath}`,
   );
-  await feedEnter(denops);
 }
 /**
  * starts a deno repl with all the file exports imported to the global scope
  */
 async function denoRepl(denops: Denops, filePath: string) {
-  await fn.feedkeys(
+  await execute(
     denops,
     `deno repl --unstable --eval "import * as m from 'file:///${filePath}';Object.entries(m).forEach(e=>window[e[0]]=e[1])"`,
   );
-  await feedEnter(denops);
 }
 ```
 
