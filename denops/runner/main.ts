@@ -31,6 +31,9 @@ export async function main(denops: Denops): Promise<void> {
         );
         return;
       }
+      // save current buffer
+      await denops.cmd(":w");
+
       // currentFilePath needs to be set before the terminal is created
       const currentFilePath = await filePath(denops);
 
