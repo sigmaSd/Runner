@@ -35,7 +35,10 @@ export async function main(denops: Denops): Promise<void> {
       await denops.cmd(":w");
 
       // currentFilePath needs to be set before the terminal is created
-      const currentFilePath = await filePath(denops);
+      // replace '\' with '/' to avoid some issues with windows
+      const currentFilePath = await filePath(denops).then((path) =>
+        path.replaceAll("\\", "/")
+      );
 
       const terminal = Deno.build.os === "windows" ? "powershell" : "fish";
       if (!await terminalIsAlive(denops)) {
