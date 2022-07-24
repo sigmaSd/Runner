@@ -49,7 +49,7 @@ export async function main(denops: Denops): Promise<void> {
       }
 
       // start terminal in insert mode
-      denops.cmd("startinsert")
+      denops.cmd("startinsert");
 
       // we add 'file:///' because windows needs it
       const plugin = await import("file:///" + userScriptPath) as {
