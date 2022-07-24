@@ -47,10 +47,9 @@ export async function main(denops: Denops): Promise<void> {
         );
         await denops.cmd(`resize ${await lines(denops) / 4}`);
       }
-      if (terminal === "powershell") {
-        // with power shell we need enter insert mode manually
-        await fn.feedkeys(denops, "a");
-      }
+
+      // start terminal in insert mode
+      denops.cmd("startinsert")
 
       // we add 'file:///' because windows needs it
       const plugin = await import("file:///" + userScriptPath) as {
